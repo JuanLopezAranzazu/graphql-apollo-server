@@ -1,5 +1,6 @@
 const { Model, DataTypes, Sequelize } = require("sequelize");
 const USER_TABLE = "user";
+const { POSITION_TABLE } = require("./Position");
 
 const UserSchema = {
   id: {
@@ -22,10 +23,25 @@ const UserSchema = {
     allowNull: false,
     type: DataTypes.STRING,
   },
+  positionId: {
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    references: {
+      model: POSITION_TABLE,
+      key: "id",
+    },
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE",
+  },
 };
 
 class User extends Model {
-  static associate(models) {}
+  static associate(models) {
+    this.belongsTo(models.Position, {
+      foreignKey: "positionId",
+      as: "position",
+    });
+  }
   static config(sequelize) {
     return {
       sequelize,

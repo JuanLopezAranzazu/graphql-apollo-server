@@ -81,7 +81,6 @@ const { typeDefs } = require("./Schema/TypeDefs");
 const { resolvers } = require("./Schema/Resolver");
 // db
 const { databaseConnection } = require("./db/index");
-
 // middlewares
 const { permissions } = require("./Middlewares/index");
 const { verifyToken } = require("./Middlewares/Authenticated");
@@ -96,7 +95,7 @@ const schemaWithPermissions = applyMiddleware(schema, ...middlewares);
 const server = new ApolloServer({
   schema: schemaWithPermissions,
   context: async ({ req, res }) => {
-    const user = (await verifyToken(req, res)) || null;
+    const user = await verifyToken(req, res);
     return { user };
   },
 });
@@ -104,3 +103,23 @@ const server = new ApolloServer({
 server.listen().then(({ url }) => {
   console.log("SERVER RUNNING ON URL", url);
 });
+
+
+/*
+const { ApolloServer } = require("apollo-server");
+// type defs
+const { typeDefs } = require("./Schema/TypeDefs");
+// resolvers
+const { resolvers } = require("./Schema/Resolver");
+// db
+const { databaseConnection } = require("./db/index");
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+server.listen().then(({ url }) => {
+  console.log("SERVER RUNNING ON URL", url);
+});
+*/

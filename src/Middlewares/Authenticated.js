@@ -60,7 +60,7 @@ const isAuthorized = rule()(async (parent, args, { user }, info) => {
 const verifyToken = async (req, res) => {
   const { authorization } = req.headers;
   if (!authorization) {
-    return false;
+    return null;
   }
   const token = authorization.replace("Bearer", "").trim();
   const user = jwt.verify(token, process.env.JWT_SECRET, {

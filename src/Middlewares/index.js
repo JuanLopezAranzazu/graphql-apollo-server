@@ -18,7 +18,7 @@ const { isAuthorized } = require("./Authenticated");
 const permissions = shield({
   Query: {
     findAllUsers: isAuthorized,
-    findByIdUser: isAuthorized,
+    findAllPositions: isAuthorized,
   },
   Mutation: {},
 });
