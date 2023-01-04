@@ -41,6 +41,18 @@ class User extends Model {
       foreignKey: "positionId",
       as: "position",
     });
+
+    this.belongsToMany(models.User, {
+      as: "following",
+      through: models.FollowerFollowing,
+      foreignKey: "followerId",
+    });
+
+    this.belongsToMany(models.User, {
+      as: "followers",
+      through: models.FollowerFollowing,
+      foreignKey: "followedId",
+    });
   }
   static config(sequelize) {
     return {

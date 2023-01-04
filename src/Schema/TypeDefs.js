@@ -9,6 +9,7 @@ const typeDefs = gql`
     positionId: ID!
     token: String
     position: Position
+    followers: [User!]
   }
 
   type Position {
@@ -36,12 +37,18 @@ const typeDefs = gql`
     password: String!
   }
 
+  type FollowerFollowed {
+    followerId: ID!
+    followedId: ID!
+  }
+
   type Mutation {
     createUser(input: CreateUserInput!): User!
     deleteUser(id: ID!): User!
     loginUser(input: LoginUserInput!): User!
     createPosition(name: String!): Position!
     deletePosition(id: ID!): Position!
+    followUser(id: ID!): FollowerFollowed!
   }
 `;
 

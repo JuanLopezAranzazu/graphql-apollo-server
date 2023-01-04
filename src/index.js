@@ -95,7 +95,7 @@ const schemaWithPermissions = applyMiddleware(schema, ...middlewares);
 const server = new ApolloServer({
   schema: schemaWithPermissions,
   context: async ({ req, res }) => {
-    const user = await verifyToken(req, res);
+    const user = (await verifyToken(req, res)) || null;
     return { user };
   },
 });
@@ -103,7 +103,6 @@ const server = new ApolloServer({
 server.listen().then(({ url }) => {
   console.log("SERVER RUNNING ON URL", url);
 });
-
 
 /*
 const { ApolloServer } = require("apollo-server");

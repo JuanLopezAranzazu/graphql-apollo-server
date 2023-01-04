@@ -4,14 +4,20 @@ const { models } = databaseConnection;
 const Query = {
   async findAllUsers() {
     const users = await models.User.findAll({
-      include: [{ model: models.Position, as: "position" }],
+      include: [
+        { model: models.Position, as: "position" },
+        { model: models.FollowerFollowing, as: "followers" },
+      ],
     });
     return users;
   },
   async findByIdUser(parent, args) {
     const { id } = args;
     const user = await models.User.findByPk(id, {
-      include: [{ model: models.Position, as: "position" }],
+      include: [
+        { model: models.Position, as: "position" },
+        { model: models.FollowerFollowing, as: "followers" },
+      ],
     });
     if (!user) {
       throw new Error("User not found");

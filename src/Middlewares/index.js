@@ -16,11 +16,10 @@ const { shield } = require("graphql-shield");
 const { isAuthorized } = require("./Authenticated");
 
 const permissions = shield({
-  Query: {
-    findAllUsers: isAuthorized,
-    findAllPositions: isAuthorized,
+  Query: {},
+  Mutation: {
+    followUser: isAuthorized,
   },
-  Mutation: {},
 });
 
 module.exports = { permissions };

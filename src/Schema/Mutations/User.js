@@ -61,6 +61,22 @@ const Mutation = {
       token,
     };
   },
+
+  async followUser(parent, args, { user }, info) {
+    console.log("AUTHENTICATED", user);
+    const follower = await models.User.findByPk(args.id);
+    if (!follower) {
+      throw new Error("Follower user not found");
+    }
+    await models.FollowerFollowing.create({
+      followerId: follower.id,
+      followedId: user.userId,
+    });
+    return {
+      followerId: follower.id,
+      followedId: user.userId,
+    };
+  },
 };
 
 module.exports = { Mutation };
