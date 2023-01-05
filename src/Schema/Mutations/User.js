@@ -64,17 +64,17 @@ const Mutation = {
 
   async followUser(parent, args, { user }, info) {
     console.log("AUTHENTICATED", user);
-    const follower = await models.User.findByPk(args.id);
-    if (!follower) {
-      throw new Error("Follower user not found");
+    const userFound = await models.User.findByPk(args.id);
+    if (!userFound) {
+      throw new Error("User user not found");
     }
-    await models.FollowerFollowing.create({
-      followerId: follower.id,
-      followedId: user.userId,
+    await models.Relation.create({
+      followerId: user.userId,
+      followedId: args.id,
     });
     return {
-      followerId: follower.id,
-      followedId: user.userId,
+      successful: true,
+      message: "Follow user successfully",
     };
   },
 };

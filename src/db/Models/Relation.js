@@ -1,8 +1,8 @@
 const { Model, DataTypes, Sequelize } = require("sequelize");
 const { USER_TABLE } = require("./User");
-const FOLLOWER_FOLLOWING_TABLE = "follower_following";
+const RELATION_TABLE = "relation";
 
-const FollowerFollowingSchema = {
+const RelationSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -30,7 +30,7 @@ const FollowerFollowingSchema = {
     onDelete: "CASCADE",
   },
 };
-class FollowerFollowing extends Model {
+class Relation extends Model {
   static associate(models) {
     this.belongsTo(models.User, {
       as: "follower",
@@ -44,14 +44,14 @@ class FollowerFollowing extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      tableName: FOLLOWER_FOLLOWING_TABLE,
-      modelName: "FollowerFollowing",
+      tableName: RELATION_TABLE,
+      modelName: "Relation",
       timestamps: false,
     };
   }
 }
 module.exports = {
-  FollowerFollowing,
-  FollowerFollowingSchema,
-  FOLLOWER_FOLLOWING_TABLE,
+  Relation,
+  RelationSchema,
+  RELATION_TABLE,
 };

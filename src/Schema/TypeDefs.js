@@ -10,6 +10,7 @@ const typeDefs = gql`
     token: String
     position: Position
     followers: [User!]
+    followedes: [User!]
   }
 
   type Position {
@@ -37,9 +38,9 @@ const typeDefs = gql`
     password: String!
   }
 
-  type FollowerFollowed {
-    followerId: ID!
-    followedId: ID!
+  type Message {
+    successful: Boolean!
+    message: String!
   }
 
   type Mutation {
@@ -48,7 +49,7 @@ const typeDefs = gql`
     loginUser(input: LoginUserInput!): User!
     createPosition(name: String!): Position!
     deletePosition(id: ID!): Position!
-    followUser(id: ID!): FollowerFollowed!
+    followUser(id: ID!): Message!
   }
 `;
 

@@ -6,7 +6,8 @@ const Query = {
     const users = await models.User.findAll({
       include: [
         { model: models.Position, as: "position" },
-        { model: models.FollowerFollowing, as: "followers" },
+        { model: models.Relation, as: "followers" },
+        { model: models.Relation, as: "followedes" },
       ],
     });
     return users;
@@ -16,7 +17,9 @@ const Query = {
     const user = await models.User.findByPk(id, {
       include: [
         { model: models.Position, as: "position" },
-        { model: models.FollowerFollowing, as: "followers" },
+        { model: models.Relation, as: "followers" },
+        { model: models.Relation, as: "followedes" },
+        ,
       ],
     });
     if (!user) {

@@ -43,14 +43,14 @@ class User extends Model {
     });
 
     this.belongsToMany(models.User, {
-      as: "following",
-      through: models.FollowerFollowing,
+      as: "followedes",
+      through: models.Relation,
       foreignKey: "followerId",
     });
 
     this.belongsToMany(models.User, {
       as: "followers",
-      through: models.FollowerFollowing,
+      through: models.Relation,
       foreignKey: "followedId",
     });
   }
